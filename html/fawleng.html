@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>قسم الفاولينج - النمير</title>
+  <link rel="stylesheet" href="../css/all.min.css">
+  <style>
+    :root {
+      --main-dark: #0a0e14;
+      --card-bg: #161b22;
+      --accent-blue: #0077ff;
+      --text-white: #f0f6fc;
+    }
+    body { background: var(--main-dark); color: var(--text-white); font-family: sans-serif; margin: 0; overflow-x: hidden; }
+    
+    /* هيدر مطابق لصفحة الدهانات */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 15px 5%; background: rgba(10, 14, 20, 0.95);
+      position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo img { width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--accent-blue); }
+    
+    .search-box { display: flex; background: var(--card-bg); border-radius: 20px; padding: 5px 15px; border: 1px solid rgba(255,255,255,0.1); }
+    .search-box input { background: none; border: none; color: white; padding: 8px; outline: none; width: 150px; }
+    
+    /* استايل الناف بار (Sidebar) المحدث */
+    .sidebar {
+      position: fixed; top: 0; right: -300px; width: 300px; height: 100vh;
+      background: var(--card-bg); z-index: 2000; transition: 0.5s; padding: 50px 30px;
+      border-left: 1px solid var(--accent-blue); box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+    }
+    .sidebar.active { right: 0; }
+    .sidebar ul { list-style: none; padding: 0; margin-top: 40px; }
+    .sidebar ul li { margin-bottom: 20px; }
+    .sidebar ul li a { 
+      color: white; text-decoration: none; font-size: 1.1rem; display: block; 
+      padding: 10px; border-radius: 10px; transition: 0.3s;
+    }
+    .sidebar ul li a:hover { background: var(--accent-blue); padding-right: 20px; }
+    .close-btn { position: absolute; top: 20px; left: 20px; font-size: 2rem; color: var(--accent-blue); cursor: pointer; }
+
+    /* شبكة المنتجات */
+    .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 40px 5%; }
+    
+    .card {
+      background: var(--card-bg); border-radius: 20px; padding: 25px; text-align: center;
+      transition: 0.4s; border: 1px solid rgba(255,255,255,0.05); position: relative;
+      opacity: 0; transform: translateY(30px);
+    }
+    .card.show { opacity: 1; transform: translateY(0); }
+    .card:hover { transform: translateY(-10px); border-color: var(--accent-blue); box-shadow: 0 10px 30px rgba(0,119,255,0.2); }
+    
+    .card img { width: 80px; margin-bottom: 20px; filter: drop-shadow(0 0 5px var(--accent-blue)); }
+    .card h3 { color: var(--accent-blue); margin-bottom: 10px; }
+    .card p { font-size: 0.9rem; opacity: 0.7; line-height: 1.6; }
+    
+    .order-btn {
+      margin-top: 20px; display: inline-block; padding: 10px 25px; 
+      border: 1px solid var(--accent-blue); color: var(--accent-blue);
+      border-radius: 20px; text-decoration: none; font-weight: bold; transition: 0.3s;
+    }
+    .card:hover .order-btn { background: var(--accent-blue); color: white; }
+
+    .back-home { position: fixed; bottom: 20px; left: 20px; background: var(--accent-blue); color: white; padding: 10px 20px; border-radius: 50px; text-decoration: none; z-index: 100; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="../image/logo (2).png" alt="النمير">
+      <span style="font-weight: bold;">قسم الفاولينج</span>
+    </div>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="ابحث...">
+      <i class="fa-solid fa-search" style="margin-top: 10px; color: var(--accent-blue);"></i>
+    </div>
+    <div class="menu-toggle" id="menuBtn" style="cursor:pointer;"><i class="fa-solid fa-bars fa-2x"></i></div>
+  </header>
+
+  <nav class="sidebar" id="sidebar">
+    <span class="close-btn" id="closeBtn">&times;</span>
+    <ul>
+      <li><a href="../index.html"><i class="fa-solid fa-house"></i> الرئيسية</a></li>
+      <li><a href="prodacts.html"><i class="fa-solid fa-box"></i> المنتجات</a></li>
+      <li><a href="mostalzamat.html"><i class="fa-solid fa-anchor"></i> مستلزمات بحرية</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="card show">
+      <img src="../image/cruise.png" alt="فاولينج">
+      <h3>فاولينج أحمر برو</h3>
+      <p>حماية فائقة لأسفل السفن من العوالق البحرية والصدأ لضمان أداء أسرع.</p>
+      <a href="https://wa.me/2001062718718" class="order-btn">اطلب عبر واتساب</a>
+    </div>
+
+    <div class="card show">
+      <img src="../image/paint-bucket.png" alt="دهان">
+      <h3>فاولينج أسود بحري</h3>
+      <p>تركيبة كيميائية متطورة تمنع التصاق الأعشاب البحرية ببدن المركب.</p>
+      <a href="https://wa.me/2001062718718" class="order-btn">اطلب الآن</a>
+    </div>
+  </div>
+
+  <a href="../index.html" class="back-home"><i class="fa-solid fa-arrow-right"></i> الرئيسية</a>
+
+  <script>
+    // أكواد تشغيل الناف بار الأصلية الخاصة بك
+    const sidebar = document.getElementById("sidebar");
+    const menuBtn = document.getElementById("menuBtn");
+    const closeBtn = document.getElementById("closeBtn");
+
+    menuBtn.onclick = (e) => { 
+      e.stopPropagation(); 
+      sidebar.classList.add("active"); 
+    }
+    closeBtn.onclick = () => sidebar.classList.remove("active");
+    
+    document.onclick = (e) => { 
+      if(!sidebar.contains(e.target) && e.target !== menuBtn) sidebar.classList.remove("active"); 
+    }
+
+    // تفعيل أنميشن الكروت
+    window.onload = () => {
+      document.querySelectorAll('.card').forEach(card => card.classList.add('show'));
+    };
+
+    // البحث
+    document.getElementById("searchInput").onkeyup = function() {
+      let filter = this.value.toLowerCase();
+      document.querySelectorAll(".card").forEach(card => {
+        let title = card.querySelector("h3").innerText.toLowerCase();
+        card.style.display = title.includes(filter) ? "block" : "none";
+      });
+    };
+  </script>
+</body>
+</html>

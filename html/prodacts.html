@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منتجات النمير | الأقسام والمنتجات</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --main-dark: #0a0e14;
+      --card-bg: #161b22;
+      --accent-blue: #0077ff;
+      --text-white: #f0f6fc;
+      --glow: 0 0 20px rgba(0, 119, 255, 0.3);
+    }
+
+    body { background-color: var(--main-dark); font-family: 'Segoe UI', 'Cairo', sans-serif; color: var(--text-white); margin: 0; }
+
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 15px 5%; background: rgba(10, 14, 20, 0.9); backdrop-filter: blur(10px);
+      position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .logo { display: flex; align-items: center; gap: 15px; }
+    .logo img { width: 50px; border-radius: 50%; border: 1px solid var(--accent-blue); }
+
+    .products-hero {
+      background: linear-gradient(45deg, #0a0e14, #001f3f);
+      padding: 60px 20px; text-align: center; border-bottom: 2px solid var(--accent-blue);
+    }
+
+    /* Search Bar */
+    .search-container { max-width: 600px; margin: -30px auto 30px; position: relative; z-index: 10; padding: 0 20px; }
+    .search-container input {
+      width: 100%; padding: 18px 25px; border-radius: 50px; background: var(--card-bg);
+      border: 2px solid var(--accent-blue); color: white; font-size: 1rem; outline: none;
+      box-shadow: var(--glow);
+    }
+
+    .products-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px; padding: 20px 8% 60px;
+    }
+
+    .product-card {
+      background: var(--card-bg); border-radius: 20px; padding: 20px;
+      border: 1px solid rgba(255,255,255,0.05); transition: 0.4s;
+      text-align: center;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px); border-color: var(--accent-blue);
+      box-shadow: 0 10px 30px rgba(0, 119, 255, 0.2);
+    }
+
+    .img-container {
+      background: #1c2128; border-radius: 15px; overflow: hidden;
+      height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .img-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+    .product-card:hover .img-container img { transform: scale(1.1); }
+
+    .product-card h3 { 
+        color: var(--accent-blue); margin-bottom: 20px; font-size: 1.3rem;
+        text-shadow: 0 0 10px rgba(0, 119, 255, 0.5);
+    }
+
+    .view-btn {
+      display: block; background: var(--accent-blue); color: white; text-decoration: none;
+      padding: 12px; border-radius: 30px; font-weight: bold; transition: 0.3s;
+    }
+    .view-btn:hover { filter: brightness(1.2); box-shadow: 0 0 15px var(--accent-blue); }
+
+    footer {
+        text-align: center; padding: 40px; background: #05070a; border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .social-links a { color: var(--text-white); margin: 0 10px; font-size: 1.5rem; text-decoration: none; transition: 0.3s; }
+    .social-links a:hover { color: var(--accent-blue); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="../image/logo (2).png" alt="النمير">
+      <h2 style="color:var(--accent-blue); margin:0; font-size: 1.2rem;">النمير للدهانات والتشطيب</h2>
+    </div>
+    <a href="../index.html" style="color:white; text-decoration:none; font-size: 0.9rem;"><i class="fa-solid fa-arrow-left"></i> الرئيسية</a>
+  </header>
+
+  <section class="products-hero">
+    <h1>عرض الأقسام والمنتجات</h1>
+    <p>كل ما تحتاجه لتشطيب منزلك أو صيانة مركبك في مكان واحد</p>
+  </section>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="ابحث عن قسم أو منتج معين...">
+  </div>
+
+  <main class="products-grid" id="productList">
+    <div class="product-card">
+      <div class="img-container"><img src="../دهانات/img6.jpeg" alt="دهانات"></div>
+      <h3>دهانات</h3>
+      <a href="dehanat.html" class="view-btn">عرض المنتجات</a>
+    </div>
+
+    <div class="product-card">
+      <div class="img-container"><img src="../الاثاث والتشطيب/img3.jpeg" alt="الأثاث والتشطيب"></div>
+      <h3>الأثاث والتشطيب</h3>
+      <a href="tasteb.html" class="view-btn">عرض المنتجات</a>
+    </div>
+
+    <div class="product-card">
+      <div class="img-container"><img src="../ادوات/img6.jpeg" alt="أدوات"></div>
+      <h3>أدوات</h3>
+      <a href="tools.html" class="view-btn">عرض المنتجات</a>
+    </div>
+
+    <div class="product-card">
+      <div class="img-container"><img src="../صنفرة تركي/img1.png" alt="صنفرة تركي"></div>
+      <h3>صنفرة تركي</h3>
+      <a href="sanfara.html" class="view-btn">عرض المنتجات</a>
+    </div>
+
+    <div class="product-card">
+      <div class="img-container"><img src="../فاولنج/img1.png" alt="فاولنج"></div>
+      <h3>فاولنج</h3>
+      <a href="fawleng.html" class="view-btn">عرض المنتجات</a>
+    </div>
+
+    <div class="product-card">
+      <div class="img-container"><img src="../مستلزمات مراكب/img1.jpeg" alt="مستلزمات مراكب"></div>
+      <h3>مستلزمات مراكب</h3>
+      <a href="mostalzamat.html" class="view-btn">عرض المنتجات</a>
+    </div>
+
+    <div class="product-card">
+      <div class="img-container"><img src="../معجون/img2.jpeg" alt="معجون"></div>
+      <h3>معجون</h3>
+      <a href="ma3gon.html" class="view-btn">عرض المنتجات</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>جميع الحقوق محفوظة © موقع النمير - 2025</p>
+    <div class="social-links">
+      <a href="https://www.facebook.com/share/17619YSVJA/?mibextid=wwXIfr"><i class="fa-brands fa-facebook"></i></a>
+      <a href="https://wa.me/2001062718718"><i class="fa-brands fa-whatsapp"></i></a>
+      <a href="#"><i class="fa-solid fa-location-dot"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    // منطق البحث
+    const searchInput = document.getElementById('searchInput');
+    const cards = document.querySelectorAll('.product-card');
+
+    searchInput.addEventListener('input', (e) => {
+      const val = e.target.value.toLowerCase();
+      cards.forEach(card => {
+        const title = card.querySelector('h3').innerText.toLowerCase();
+        card.style.display = title.includes(val) ? 'block' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>

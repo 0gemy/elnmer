@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>النمير للدهانات البحرية وتشطيب المنازل</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --main-dark: #0a0e14;
+            --card-bg: #161b22;
+            --accent-blue: #0077ff;
+            --glow: 0 0 20px rgba(0, 119, 255, 0.4);
+            --text-white: #f0f6fc;
+            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--main-dark); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-white);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: rgba(10, 14, 20, 0.9);
+            backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo { display: flex; align-items: center; gap: 15px; }
+        .logo img { width: 55px; height: 55px; border-radius: 50%; border: 2px solid var(--accent-blue); box-shadow: var(--glow); }
+        .logo .tagline { font-size: 0.9rem; color: var(--accent-blue); font-weight: bold; line-height: 1.2; }
+
+        .search-box { position: relative; width: 30%; display: flex; }
+        .search-box input { 
+            width: 100%; padding: 10px 20px; border-radius: 20px;
+            background: var(--card-bg); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none;
+        }
+        .search-box button { background: none; border: none; color: var(--accent-blue); position: absolute; left: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; }
+
+        .menu-toggle { cursor: pointer; font-size: 1.5rem; color: var(--text-white); }
+
+        /* Carousel Section */
+        .carousel {
+            height: clamp(220px, 48vw, 460px); margin: 20px 5%;
+            overflow: hidden; border-radius: 25px; position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05);
+        }
+        .track { display: flex; height: 100%; transition: transform 0.6s ease-in-out; }
+        .slide { min-width: 100%; height: 100%; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        .browse-btn {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: var(--accent-blue); color: white; padding: 12px 35px;
+            border-radius: 30px; border: none; font-weight: bold; cursor: pointer;
+            box-shadow: var(--glow); transition: 0.3s; z-index: 10;
+        }
+        .browse-btn:hover { transform: translateX(-50%) scale(1.1); filter: brightness(1.2); }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed; top: 0; right: -300px; width: 300px; height: 100vh;
+            background: var(--card-bg); z-index: 2000; transition: 0.5s; padding: 50px 30px;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+        }
+        .sidebar.active { right: 0; }
+        .sidebar .close-btn { position: absolute; top: 20px; left: 20px; font-size: 2rem; cursor: pointer; }
+        .sidebar ul { list-style: none; margin-top: 30px; }
+        .sidebar ul li { margin-bottom: 20px; }
+        .sidebar ul li a { color: white; text-decoration: none; font-size: 1.1rem; display: flex; align-items: center; gap: 15px; transition: 0.3s; }
+        .sidebar ul li a:hover { color: var(--accent-blue); padding-right: 10px; }
+
+        .dropdown_menu { margin-right: 25px; margin-top: 10px; list-style: none; border-right: 2px solid var(--accent-blue); padding-right: 15px; }
+        .dropdown_menu li { margin-bottom: 10px; font-size: 0.9rem; }
+
+        /* Cards Grid */
+        .cards {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px; padding: 50px 5%;
+        }
+        .cardx {
+            background: var(--card-bg); padding: 30px; border-radius: 25px; text-align: center;
+            border: 1px solid rgba(255,255,255,0.03); transition: var(--transition);
+        }
+        .cardx:hover { transform: translateY(-10px); border-color: var(--accent-blue); box-shadow: var(--glow); }
+        .cardx img, .cardx i { 
+            width: 80px; 
+            font-size: 4rem;
+            margin-bottom: 20px; 
+            display: inline-block;
+            color: var(--accent-blue);
+            filter: drop-shadow(0 0 10px var(--accent-blue)); 
+        }
+        .cardx h3 { color: var(--accent-blue); margin-bottom: 15px; }
+        .cardx p { font-size: 0.9rem; opacity: 0.7; line-height: 1.6; margin-bottom: 25px; }
+        
+        .btn-donate {
+            background: transparent; border: 2px solid var(--accent-blue); color: var(--accent-blue);
+            padding: 10px 25px; border-radius: 15px; font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+        .cardx:hover .btn-donate { background: var(--accent-blue); color: white; }
+
+        /* Footer */
+        footer {
+            background: #05070a; padding: 40px 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        footer p { margin-bottom: 15px; opacity: 0.6; }
+        footer a { color: var(--text-white); font-size: 1.5rem; margin: 0 15px; transition: 0.3s; }
+        footer a:hover { color: var(--accent-blue); }
+
+        @media (max-width: 768px) {
+            .search-box { display: none; }
+            .carousel { margin: 10px 0; border-radius: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="image/logo (2).png" alt="النمير">
+            <div class="tagline">النمير للدهانات البحرية <br> وتشطيب المنازل</div>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="ابحث هنا...">
+            <button><i class="fa-solid fa-search"></i></button>
+        </div>
+        <div class="menu-toggle" id="menuBtn"><i class="fa-solid fa-bars-staggered"></i></div>
+    </header>
+
+    <nav class="sidebar" id="sidebar">
+        <span class="close-btn" id="closeBtn">×</span>
+        <ul>
+            <li><a href="index.html"><i class="fa-solid fa-house"></i> الرئيسية</a></li>
+            <li>
+                <a href="#"><i class="fa-solid fa-box"></i> الأقسام</a>
+                <ul class="dropdown_menu">
+                    <li><a href="html/prodacts.html">المنتجات</a></li>
+                    <li><a href="html/tools.html">الأدوات</a></li>
+                    <li><a href="html/tasteb.html">الأثاث والتشطيب</a></li>
+                    <li><a href="html/dehanat.html">الدهانات</a></li>
+                    <li><a href="html/sanfara.html">الصنفرة التركي</a></li>
+                    <li><a href="html/fawleng.html">فاولنج</a></li>
+                    <li><a href="html/mostalzamat.html">مستلزمات مراكب</a></li>
+                    <li><a href="html/ma3gon.html">معجون</a></li>
+                </ul>
+            </li>
+            <li><a href="html/Contact us.html"><i class="fa-solid fa-phone"></i> تواصل معنا</a></li>
+        </ul>
+    </nav>
+
+    <section class="carousel">
+        <div class="track" id="sliderTrack">
+            <div class="slide"><img src="image/img4.jpg" alt="صورة 1"></div>
+            <div class="slide"><img src="image/img60.jpg" alt="صورة 2"></div>
+            <div class="slide"><img src="image/صورة واتساب بتاريخ 1447-02-24 في 02.57.48_3666fbb4.jpg" alt="صورة 3"></div>
+        </div>
+        <button class="browse-btn" onclick="location.href='html/prodacts.html'">تصفح المنتجات</button>
+    </section>
+
+    <section class="cards">
+        <div class="cardx">
+            <img src="image/cruise.png" alt="مراكب">
+            <h3>مستلزمات مراكب</h3>
+            <p>يوجد لدينا جميع مستلزمات المراكب وبأعلى جودة تقاوم الملوحة.</p>
+            <button class="btn-donate" onclick="window.location.href='html/mostalzamat.html'">عرض المزيد</button>
+        </div>
+
+        <div class="cardx">
+            <img src="image/paint-bucket.png" alt="دهانات">
+            <h3>الدهانات</h3>
+            <p>يوجد لدينا أجود أنواع الدهانات الديكورية والإنشائية الأصلية.</p>
+            <button class="btn-donate" onclick="window.location.href='html/dehanat.html'">عرض المزيد</button>
+        </div>
+
+        <div class="cardx">
+            <img src="image/sanding-machine.png" alt="صنفرة">
+            <h3>الصنفرة</h3>
+            <p>يوجد لدينا أفضل أنواع الصنفرة التركي المخصصة للأعمال الشاقة.</p>
+            <button class="btn-donate" onclick="window.location.href='html/sanfara.html'">عرض المزيد</button>
+        </div>
+
+        <div class="cardx">
+            <i class="fa-solid fa-couch"></i>
+            <h3>الأثاث والتشطيب</h3>
+            <p>حلول متكاملة لتشطيب الأثاث والمنازل بأحدث التقنيات العصرية.</p>
+            <button class="btn-donate" onclick="window.location.href='html/tasteb.html'">عرض المزيد</button>
+        </div>
+
+        <div class="cardx">
+            <img src="image/repair-tools.png" alt="أدوات">
+            <h3>الأدوات والمستلزمات</h3>
+            <p>يوجد لدينا جميع الأدوات والمعدات الفنية وبأعلى كفاءة عمل.</p>
+            <button class="btn-donate" onclick="window.location.href='html/tools.html'">عرض المزيد</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © موقع النمير - 2025</p>
+        <div style="margin-top: 15px;">
+            <a href="https://www.facebook.com/share/17619YSVJA/?mibextid=wwXIfr" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://wa.me/2001062718718" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#"><i class="fa-solid fa-location-dot"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // التحكم في السايدبار
+        const sidebar = document.getElementById('sidebar');
+        const openBtn = document.getElementById('menuBtn');
+        const closeBtn = document.getElementById('closeBtn');
+
+        openBtn.onclick = () => sidebar.classList.add('active');
+        closeBtn.onclick = () => sidebar.classList.remove('active');
+
+        // كورسيل الصور (RTL)
+        const track = document.getElementById('sliderTrack');
+        const slides = document.querySelectorAll('.slide');
+        let index = 0;
+
+        function moveSlider() {
+            index = (index + 1) % slides.length;
+            track.style.transform = `translateX(${index * 100}%)`;
+        }
+        setInterval(moveSlider, 4000);
+
+        // إغلاق السايدبار عند الضغط خارجاً
+        document.addEventListener('click', (e) => {
+            if (sidebar.classList.contains('active') && !sidebar.contains(e.target) && !openBtn.contains(e.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

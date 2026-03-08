@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الاثاث والتشطيب | النمير</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --main-dark: #0a0e14;
+            --card-bg: #161b22;
+            --accent-blue: #0077ff;
+            --text-white: #f0f6fc;
+            --glow: 0 0 20px rgba(0, 119, 255, 0.4);
+            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        body { background-color: var(--main-dark); font-family: 'Segoe UI', sans-serif; color: var(--text-white); margin: 0; overflow-x: hidden; }
+
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: rgba(10, 14, 20, 0.9); backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo { display: flex; align-items: center; gap: 15px; }
+        .logo img { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--accent-blue); }
+        .logo h1 { font-size: 1.1rem; color: var(--accent-blue); margin: 0; }
+        .tagline { font-size: 0.8rem; color: #8b949e; margin-top: 5px; }
+
+        /* Search Box */
+        .search-container { flex: 1; max-width: 400px; margin: 0 20px; position: relative; }
+        .search-container input {
+            width: 100%; padding: 10px 20px; border-radius: 20px; border: 1px solid #30363d;
+            background: #0d1117; color: white; outline: none;
+        }
+        .search-container i { position: absolute; left: 15px; top: 12px; color: var(--accent-blue); }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed; top: 0; right: -300px; width: 300px; height: 100vh;
+            background: var(--card-bg); z-index: 2000; transition: 0.6s; padding: 50px 30px;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+        }
+        .sidebar.active { right: 0; }
+        .sidebar a { display: block; color: white; text-decoration: none; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+        .sidebar a:hover { color: var(--accent-blue); padding-right: 10px; }
+        .dropdown-content { padding-right: 20px; font-size: 0.9rem; background: #0d1117; }
+
+        /* Color Tool */
+        .color-tool {
+            background: var(--card-bg); margin: 30px 5%; padding: 30px; border-radius: 25px;
+            display: flex; align-items: center; justify-content: space-between; gap: 20px;
+            border: 1px solid rgba(0, 119, 255, 0.2);
+        }
+
+        /* Products Grid */
+        .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 40px 5%; }
+        
+        .card {
+            background: var(--card-bg); border-radius: 25px; padding: 20px; text-align: center;
+            border: 1px solid rgba(255,255,255,0.03); transition: var(--transition);
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent-blue); box-shadow: var(--glow); }
+        .card img { width: 100%; height: 220px; object-fit: cover; border-radius: 20px; margin-bottom: 15px; }
+        .card h3 { color: var(--accent-blue); margin: 10px 0; }
+        .price { color: #3fb950; font-weight: bold; margin-bottom: 15px; }
+        
+        .action-btn {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 12px; border-radius: 15px; background: #238636; color: white;
+            text-decoration: none; font-weight: bold; transition: 0.3s;
+        }
+        .action-btn:hover { background: #2ea043; }
+        .action-btn svg { width: 20px; fill: white; }
+
+        footer { text-align: center; padding: 40px; background: #0d1117; margin-top: 50px; }
+        .social-links { font-size: 1.5rem; margin-top: 15px; }
+        .social-links a { color: var(--accent-blue); margin: 0 10px; }
+
+        @media (max-width: 768px) { 
+            .color-tool { flex-direction: column; text-align: center; }
+            .search-container { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="../image/logo (2).png" alt="النمير">
+            <div>
+                <h1>النمير للأثاث والتشطيب</h1>
+                <div class="tagline">للدهانات البحرية وتشطيب المنازل</div>
+            </div>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="ابحث عن منتج...">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        <div id="openSidebar" style="cursor:pointer"><i class="fa-solid fa-bars-staggered fa-2x"></i></div>
+    </header>
+
+    <nav class="sidebar" id="sidebar">
+        <div id="closeSidebar" style="cursor:pointer; margin-bottom: 30px;"><i class="fa-solid fa-xmark fa-2x"></i></div>
+        <a href="../index.html"><i class="fa-solid fa-house"></i> الرئيسية</a>
+        <div style="color: #8b949e; margin-top: 15px; font-size: 0.8rem;">الأقسام</div>
+        <div class="dropdown-content">
+            <a href="../html/prodacts.html">المنتجات</a>
+            <a href="../html/tools.html">الأدوات</a>
+            <a href="../html/tasteb.html" style="color: var(--accent-blue);">الأثاث والتشطيب</a>
+            <a href="../html/dehanat.html">الدهانات</a>
+            <a href="../html/sanfara.html">الصنفرة التركي</a>
+            <a href="../html/fawleng.html">فاولنج</a>
+            <a href="../html/mostalzamat.html">مستلزمات مراكب</a>
+            <a href="../html/ma3gon.html">معجون</a>
+        </div>
+        <a href="Contact us.html"><i class="fa-solid fa-phone"></i> تواصل معنا</a>
+    </nav>
+
+    <section class="color-tool">
+        <div>
+            <h3 style="color: var(--accent-blue);">أداة تنسيق الألوان</h3>
+            <p>اختر اللون المناسب لقطعة الأثاث أو الجدران</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <input type="color" id="colorPicker" value="#0077ff" style="width:50px; height:50px; border:none; cursor:pointer; background:none;">
+            <div id="colorCode" style="font-family: monospace; font-weight: bold; color: var(--accent-blue);">#0077FF</div>
+            <button onclick="copyColor()" style="background:none; border:1px solid var(--accent-blue); color:white; padding:5px 15px; border-radius:10px; cursor:pointer;">نسخ</button>
+        </div>
+    </section>
+
+    <div class="container" id="productGrid">
+        <div class="card">
+            <img src="../الاثاث والتشطيب/img1.jpeg" alt="KEMATONE">
+            <h3>KEMATONE</h3>
+            <p>دهان بلاستيك اكريلك نصف لامع</p>
+            <div class="price">00.00 جنيه</div>
+            <a href="https://wa.me/2001062718718" class="action-btn">
+                <span>طلب عبر واتساب</span>
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </div>
+
+        <div class="card">
+            <img src="../الاثاث والتشطيب/img2.jpeg" alt="JOTASHIELD">
+            <h3>JOTASHIELD</h3>
+            <p>سيلر جوتن خارجي</p>
+            <div class="price">00.00 جنيه</div>
+            <a href="https://wa.me/2001062718718" class="action-btn">
+                <span>طلب عبر واتساب</span>
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </div>
+
+        <div class="card">
+            <img src="../الاثاث والتشطيب/img3.jpeg" alt="سوبر داي تون">
+            <h3>سوبر داي تون</h3>
+            <p>دهان بلاستيك عالي الجودة</p>
+            <div class="price">00.00 جنيه</div>
+            <a href="https://wa.me/2001062718718" class="action-btn">
+                <span>طلب عبر واتساب</span>
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </div>
+
+        <div class="card">
+            <img src="../الاثاث والتشطيب/img4.jpeg" alt="STUCCO">
+            <h3>STUCCO</h3>
+            <p>معجون داخلي جوتن</p>
+            <div class="price">00.00 جنيه</div>
+            <a href="https://wa.me/2001062718718" class="action-btn">
+                <span>طلب عبر واتساب</span>
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </div>
+
+        <div class="card">
+            <img src="../الاثاث والتشطيب/img5.jpeg" alt="دهان اكريلك">
+            <h3>دهان اكريلك</h3>
+            <p>دهان اكريلك مائي نصف لامع</p>
+            <div class="price">00.00 جنيه</div>
+            <a href="https://wa.me/2001062718718" class="action-btn">
+                <span>طلب عبر واتساب</span>
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </div>
+
+        <div class="card">
+            <img src="../الاثاث والتشطيب/img6.jpeg" alt="سوبر ديرتون 777">
+            <h3>سوبر ديرتون 777</h3>
+            <p>طلاء سوبر لاتكس مط</p>
+            <div class="price">00.00 جنيه</div>
+            <a href="https://wa.me/2001062718718" class="action-btn">
+                <span>طلب عبر واتساب</span>
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </div>
+
+        <div class="card">
+            <img src="../الاثاث والتشطيب/img7.jpeg" alt="باكين 888">
+            <h3>باكين 888</h3>
+            <p>طلاء اكسترا سوبر لاتكس نصف لامع</p>
+            <div class="price">00.00 جنيه</div>
+            <a href="https://wa.me/2001062718718" class="action-btn">
+                <span>طلب عبر واتساب</span>
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </div>
+
+        <div class="card">
+            <img src="../الاثاث والتشطيب/img8.jpeg" alt="JOTUN">
+            <h3>JOTUN</h3>
+            <p>سيلر مائي داخلي</p>
+            <div class="price">00.00 جنيه</div>
+            <a href="https://wa.me/2001062718718" class="action-btn">
+                <span>طلب عبر واتساب</span>
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </div>
+
+
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © موقع النمير - 2025</p>
+        <div class="social-links">
+            <a href="https://www.facebook.com/share/17619YSVJA/"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://wa.me/2001062718718"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#"><i class="fa-solid fa-location-dot"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Sidebar Logic
+        const sidebar = document.getElementById('sidebar');
+        document.getElementById('openSidebar').onclick = () => sidebar.classList.add('active');
+        document.getElementById('closeSidebar').onclick = () => sidebar.classList.remove('active');
+
+        // Color Picker Logic
+        const picker = document.getElementById("colorPicker");
+        const codeDisplay = document.getElementById("colorCode");
+        picker.oninput = () => codeDisplay.innerText = picker.value.toUpperCase();
+        function copyColor() { 
+            navigator.clipboard.writeText(codeDisplay.innerText); 
+            alert("تم نسخ كود اللون: " + codeDisplay.innerText); 
+        }
+
+        // Search Logic
+        const searchInput = document.getElementById("searchInput");
+        const cards = document.querySelectorAll(".card");
+
+        searchInput.addEventListener("keyup", () => {
+            const filter = searchInput.value.toLowerCase();
+            cards.forEach(card => {
+                const title = card.querySelector("h3").innerText.toLowerCase();
+                card.style.display = title.includes(filter) ? "block" : "none";
+            });
+        });
+
+        // Close sidebar on click outside
+        document.addEventListener("click", (e) => {
+            if (sidebar.classList.contains("active") && !sidebar.contains(e.target) && !document.getElementById('openSidebar').contains(e.target)) {
+                sidebar.classList.remove("active");
+            }
+        });
+    </script>
+</body>
+</html>
